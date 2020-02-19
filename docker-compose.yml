@@ -2,3 +2,5 @@ version: '3'
 services:
   duc-service:
     build: .
+    ports:
+      - "80:80"

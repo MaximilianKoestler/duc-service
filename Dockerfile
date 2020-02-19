@@ -9,8 +9,8 @@ LABEL maintainer="Maximilian Köstler <maximilian@koestler.dev>"
 
 ARG DUC_VERSION=1.4.4
 
-RUN apt-get update \
- && apt-get install --no-install-recommends --yes \
+RUN apt-get update -qq \
+ && apt-get install -qq --no-install-recommends \
         build-essential \
         checkinstall \
         libcairo2-dev \
@@ -41,8 +41,22 @@ COPY --from=build /duc.deb /
 RUN dpkg -i /duc.deb \
  && rm /duc.deb
 
-RUN apt-get update \
- && apt-get install --no-install-recommends --yes \
+RUN apt-get update -qq \
+ && apt-get install -qq --no-install-recommends \
         fcgiwrap \
+        libcairo2 \
+        libpango-1.0 \
+        libpangocairo-1.0-0 \
+        libtokyocabinet9 \
         nginx \
- && rm -rf /var/lib/apt/lists/*
+ && rm -rf /var/lib/apt/lists/* \
+ && rm -rf /var/www/html/*
+
+COPY app/nginx.conf /etc/nginx/nginx.conf
+COPY app/duc.cgi /var/www/html/duc.cgi
+
+EXPOSE 80
+
+STOPSIGNAL SIGTERM
+
+CMD /etc/init.d/fcgiwrap start && nginx

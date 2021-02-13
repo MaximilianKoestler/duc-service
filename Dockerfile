@@ -53,10 +53,17 @@ RUN apt-get update -qq \
  && rm -rf /var/www/html/*
 
 COPY app/nginx.conf /etc/nginx/nginx.conf
+COPY app/ducrc /etc/ducrc
 COPY app/duc.cgi /var/www/html/duc.cgi
+
+# storage locaction for the database
+RUN mkdir -p /database
+
+# mount point for directories to index
+RUN mkdir -p /scan
 
 EXPOSE 80
 
 STOPSIGNAL SIGTERM
 
-CMD /etc/init.d/fcgiwrap start && nginx
+CMD duc index --progress /scan/ && /etc/init.d/fcgiwrap start && nginx

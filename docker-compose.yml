@@ -3,4 +3,13 @@ services:
   duc-service:
     build: .
     ports:
-      - "80:80"
+      # example 80 -> 80
+      - target: 80
+        published: 80
+        protocol: tcp
+        mode: host
+    volumes:
+      # example: scan the whole root partition
+      - type: bind
+        source: /
+        target: /scan/root

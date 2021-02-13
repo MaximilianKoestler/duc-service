@@ -52,15 +52,17 @@ RUN apt-get update -qq \
  && rm -rf /var/lib/apt/lists/* \
  && rm -rf /var/www/html/*
 
+# storage locaction for the database
+RUN mkdir -p /database
+# mount point for directories to index
+RUN mkdir -p /scan
+
 COPY app/nginx.conf /etc/nginx/nginx.conf
 COPY app/ducrc /etc/ducrc
 COPY app/duc.cgi /var/www/html/duc.cgi
+COPY app/index.cgi /var/www/html/index.cgi
 
-# storage locaction for the database
-RUN mkdir -p /database
-
-# mount point for directories to index
-RUN mkdir -p /scan
+RUN chmod u+s /usr/local/bin/duc
 
 EXPOSE 80
 

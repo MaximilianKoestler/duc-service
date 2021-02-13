@@ -1,4 +1,8 @@
 version: '3'
+
+volumes:
+    duc_database:
+
 services:
   duc-service:
     build: .
@@ -13,3 +17,8 @@ services:
       - type: bind
         source: /
         target: /scan/root
+        read_only: true
+      # example: store the database outside the container
+      - type: volume
+        source: duc_database
+        target: /database

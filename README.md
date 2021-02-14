@@ -1,6 +1,13 @@
 # Duc-Service
 Run [Duc](https://duc.zevv.nl/) in Docker and re-index the file system using a schedule.
 
+The built docker images can be found on [Docker Hub](https://hub.docker.com/r/mkoestler/duc-service/).
+
+# Features
+- Included scheduling for automatic scanning
+- Single-command deployment
+- Very small image footprint
+
 ## Usage Example
 ```
 docker run -e "SCHEDULE=0 0 * * *" -p 80:80 \
@@ -14,9 +21,9 @@ docker run -e "SCHEDULE=0 0 * * *" -p 80:80 \
 A cron-expression that determines when an automatic scan is started
 
 ### Web Endpoints
-`/duc.cgi` provides a web gui to explore the disk usage
-`/manual_scan.cgi` queues a manual scan
-`/log.cgi` displays the log output from the last scan
+- `/duc.cgi` provides a web gui to explore the disk usage
+- `/manual_scan.cgi` queues a manual scan
+- `/log.cgi` displays the log output from the last scan
 
 ## Developing
 

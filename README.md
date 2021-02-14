@@ -1,6 +1,23 @@
 # Duc-Service
 Run [Duc](https://duc.zevv.nl/) in Docker and re-index the file system using a schedule.
 
+## Usage Example
+```
+docker run -e "SCHEDULE=0 0 * * *" -p 80:80 \
+    --mount type=bind,src=/,dst=/scan/root,readonly \
+    --mount type=volume,src=duc_database,dst=/database \
+    mkoestler/duc-service
+```
+
+## Parameters
+### SCHEDULE
+A cron-expression that determines when an automatic scan is started
+
+### Web Endpoints
+`/duc.cgi` provides a web gui to explore the disk usage
+`/manual_scan.cgi` queues a manual scan
+`/log.cgi` displays the log output from the last scan
+
 ## Developing
 
 ### With docker-compose
@@ -22,5 +39,8 @@ docker build . -t duc-service
 
 Run:
 ```
-docker run -e "SCHEDULE=0 0 * * *" -p 80:80 --mount type=bind,src=/,dst=/scan/root,readonly --mount type=volume,src=duc_database,dst=/database duc-service
+docker run -e "SCHEDULE=0 0 * * *" -p 80:80 \
+    --mount type=bind,src=/,dst=/scan/root,readonly \
+    --mount type=volume,src=duc_database,dst=/database \
+    duc-service
 ```

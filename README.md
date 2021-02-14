@@ -2,6 +2,7 @@
 [![Docker Build Status](https://img.shields.io/docker/cloud/build/mkoestler/duc-service.svg)](https://hub.docker.com/r/mkoestler/duc-service/)
 [![Docker Automated build](https://img.shields.io/docker/cloud/automated/mkoestler/duc-service.svg)](https://hub.docker.com/r/mkoestler/duc-service/)
 [![Docker Pulls](https://img.shields.io/docker/pulls/mkoestler/duc-service.svg)](https://hub.docker.com/r/mkoestler/duc-service/)
+[![Docker Image Size](https://img.shields.io/docker/image-size/mkoestler/duc-service?sort=date)](https://hub.docker.com/r/mkoestler/duc-service/)
 
 Run [Duc](https://duc.zevv.nl/) in Docker and re-index the file system using a schedule.
 

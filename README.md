@@ -18,9 +18,9 @@ docker run -e "SCHEDULE=0 0 * * *" -p 80:80 \
 
 ## Parameters
 ### SCHEDULE
-A cron-expression that determines when an automatic scan is started
+A cron-expression that determines when an automatic scan is started.
 
-### Web Endpoints
+## Web Endpoints
 - `/duc.cgi` provides a web gui to explore the disk usage
 - `/manual_scan.cgi` queues a manual scan
 - `/log.cgi` displays the log output from the last scan

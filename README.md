@@ -1,4 +1,8 @@
 # Duc-Service
+[![Docker Build Status](https://img.shields.io/docker/cloud/build/mkoestler/duc-service.svg)](https://hub.docker.com/r/mkoestler/duc-service/)
+[![Docker Automated build](https://img.shields.io/docker/cloud/automated/mkoestler/duc-service.svg)](https://hub.docker.com/r/mkoestler/duc-service/)
+[![Docker Pulls](https://img.shields.io/docker/pulls/mkoestler/duc-service.svg)](https://hub.docker.com/r/mkoestler/duc-service/)
+
 Run [Duc](https://duc.zevv.nl/) in Docker and re-index the file system using a schedule.
 
 The built docker images can be found on [Docker Hub](https://hub.docker.com/r/mkoestler/duc-service/).
@@ -51,3 +55,10 @@ docker run -e "SCHEDULE=0 0 * * *" -p 80:80 \
     --mount type=volume,src=duc_database,dst=/database \
     duc-service
 ```
+
+## References
+- Duc homepage: https://duc.zevv.nl/
+
+## Similar Projects
+- https://hub.docker.com/r/tigerdockermediocore/duc-docker
+- https://hub.docker.com/r/digitalman2112/duc

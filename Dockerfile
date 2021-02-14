@@ -43,6 +43,7 @@ RUN dpkg -i /duc.deb \
 
 RUN apt-get update -qq \
  && apt-get install -qq --no-install-recommends \
+        cron \
         fcgiwrap \
         libcairo2 \
         libpango-1.0 \
@@ -59,13 +60,20 @@ RUN mkdir -p /scan
 
 COPY app/nginx.conf /etc/nginx/nginx.conf
 COPY app/ducrc /etc/ducrc
-COPY app/duc.cgi /var/www/html/duc.cgi
-COPY app/index.cgi /var/www/html/index.cgi
 
-RUN chmod u+s /usr/local/bin/duc
+COPY app/duc.cgi /var/www/html/duc.cgi
+COPY app/manual_scan.cgi /var/www/html/manual_scan.cgi
+COPY app/log.cgi /var/www/html/log.cgi
+
+COPY app/startup.sh /startup.sh
+COPY app/scan.sh /scan.sh
+COPY app/manual_scan.sh /manual_scan.sh
+
+# Default schedule: everyday at midnight
+ENV SCHEDULE 0 0 * * *
 
 EXPOSE 80
 
 STOPSIGNAL SIGTERM
 
-CMD duc index --progress /scan/ && /etc/init.d/fcgiwrap start && nginx
+CMD /startup.sh

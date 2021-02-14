@@ -6,6 +6,9 @@ volumes:
 services:
   duc-service:
     build: .
+    environment:
+      # example: everyday at midnight
+      - SCHEDULE=0 0 * * *
     ports:
       # example 80 -> 80
       - target: 80

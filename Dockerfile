@@ -5,7 +5,6 @@ ARG UBUNTU_VERSION=18.04
 ####################################
 
 FROM ubuntu:${UBUNTU_VERSION} AS build
-LABEL maintainer="Maximilian Köstler <maximilian@koestler.dev>"
 
 ARG DUC_VERSION=1.4.4
 
@@ -35,6 +34,14 @@ RUN tar xzf duc-${DUC_VERSION}.tar.gz \
 ###############################
 
 FROM ubuntu:${UBUNTU_VERSION}
+
+ARG BUILD_DATE
+ARG VCS_REF
+LABEL maintainer="Maximilian Köstler <maximilian@koestler.dev>" \
+      org.label-schema.build-date=$BUILD_DATE \
+      org.label-schema.vcs-url="https://github.com/MaximilianKoestler/duc-service.git" \
+      org.label-schema.vcs-ref=$VCS_REF \
+      org.label-schema.schema-version="1.0.0-rc1"
 
 COPY --from=build /duc.deb /
 

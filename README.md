@@ -32,18 +32,18 @@ A cron-expression that determines when an automatic scan is started.
 
 ## Developing
 
-### With docker-compose
+### With docker compose
 Build:
 ```
-docker-compose build
+docker compose build
 ```
 
 Run:
 ```
-docker-compose up --build --detach
+docker compose up --build --detach
 ```
 
-### Without docker-compose
+### Without docker compose
 Build:
 ```
 docker build . -t duc-service

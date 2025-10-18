@@ -1,6 +1,8 @@
-#! /bin/sh
+#!/usr/bin/env bash
 
-echo "Content-type: text/plain"
-echo ""
+set -euo pipefail
 
-cat /var/log/duc.log
+LOG_FILE="${DUC_LOG_FILE:-/var/log/duc.log}"
+
+echo "Content-type: text/plain"; echo
+cat "$LOG_FILE"

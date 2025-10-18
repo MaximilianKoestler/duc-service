@@ -1,3 +1,5 @@
-#! /bin/sh
+#!/usr/bin/env bash
 
-duc cgi
+set -euo pipefail
+
+exec duc cgi

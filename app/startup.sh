@@ -16,5 +16,10 @@ chmod 0644 /etc/cron.d/duc-index
 cron
 
 echo "Launching webserver"
-/etc/init.d/fcgiwrap start
+rm -f /var/run/fcgiwrap.socket
+nohup fcgiwrap -s unix:/var/run/fcgiwrap.socket &
+while ! [ -S /var/run/fcgiwrap.socket ]; do sleep .2; done
+chmod 777 /var/run/fcgiwrap.socket
+test -f nohup.out && rm ./nohup.out
+
 nginx

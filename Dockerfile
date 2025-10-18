@@ -11,13 +11,14 @@ ARG DUC_VERSION=1.4.5
 RUN apt-get update -qq \
  && apt-get install -y -qq --no-install-recommends \
         build-essential \
+        ca-certificates \
         checkinstall \
+        curl \
         libcairo2-dev \
         libncursesw5-dev \
         libpango1.0-dev \
         libtokyocabinet-dev \
         pkg-config \
-        wget \
  && rm -rf /var/lib/apt/lists/*
 
 ADD https://github.com/zevv/duc/releases/download/${DUC_VERSION}/duc-${DUC_VERSION}.tar.gz .
@@ -25,7 +26,7 @@ ADD https://github.com/zevv/duc/releases/download/${DUC_VERSION}/duc-${DUC_VERSI
 RUN tar xzf duc-${DUC_VERSION}.tar.gz \
  && cd duc-${DUC_VERSION} \
  && ./configure \
- && make \
+ && make -j"$(nproc)" \
  && checkinstall --install=no --default \
  && cp duc_${DUC_VERSION}-*.deb /duc.deb
 
@@ -34,6 +35,7 @@ RUN tar xzf duc-${DUC_VERSION}.tar.gz \
 ###############################
 
 FROM ubuntu:${UBUNTU_VERSION}
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 ARG BUILD_DATE
 ARG VCS_REF

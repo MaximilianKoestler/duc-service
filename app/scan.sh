@@ -1,18 +1,24 @@
-#! /bin/sh
+#!/usr/bin/env bash
 
-# Log file path (can be overridden externally)
-LOGFILE="${DUC_LOGFILE:-/var/log/duc.log}"
+set -euo pipefail
 
-if [ ! -f /tmp/scan_in_progress ]; then
-    touch /tmp/scan_in_progress
+LOG_FILE="${DUC_LOG_FILE:-/var/log/duc.log}"
+LOCK_DIR="/tmp/scan.lock"
+
+# Acquire lock atomically using mkdir (portable). If it exists, just exit silently.
+if mkdir "$LOCK_DIR" 2>/dev/null; then
+    trap 'rm -rf "$LOCK_DIR"' EXIT
 
     {
         echo "Start of scan: $(date)"
-        /usr/local/bin/duc index --progress /scan 2>&1
-        exit_code=$?
-        echo "End of scan: $(date) (exit code: $exit_code)"
-    } | tee -a "$LOGFILE"
+        /usr/local/bin/duc index --progress /scan
+        status=$?
+        echo "End of scan: $(date) (exit code: $status)"
+        # Propagate exit status of duc from this subshell to pipeline.
+        exit $status
+    } 2>&1 | tee -a "$LOG_FILE"
 
-    rm -f /tmp/scan_in_progress
-    exit $exit_code
+    # Retrieve exit status of the block (first element) from PIPESTATUS.
+    scan_status=${PIPESTATUS[0]}
+    exit $scan_status
 fi

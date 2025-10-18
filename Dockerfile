@@ -9,7 +9,7 @@ FROM ubuntu:${UBUNTU_VERSION} AS build
 ARG DUC_VERSION=1.4.5
 
 RUN apt-get update -qq \
- && apt-get install -qq --no-install-recommends \
+ && apt-get install -y -qq --no-install-recommends \
         build-essential \
         checkinstall \
         libcairo2-dev \
@@ -46,10 +46,9 @@ LABEL maintainer="Maximilian Köstler <maximilian@koestler.dev>" \
 COPY --from=build /duc.deb /
 
 RUN dpkg -i /duc.deb \
- && rm /duc.deb
-
-RUN apt-get update -qq \
- && apt-get install -qq --no-install-recommends \
+ && rm /duc.deb \
+ && apt-get update -qq \
+ && apt-get install -y -qq --no-install-recommends \
         cron \
         fcgiwrap \
         libcairo2 \
@@ -58,12 +57,8 @@ RUN apt-get update -qq \
         libtokyocabinet9 \
         nginx \
  && rm -rf /var/lib/apt/lists/* \
- && rm -rf /var/www/html/*
-
-# storage locaction for the database
-RUN mkdir -p /database
-# mount point for directories to index
-RUN mkdir -p /scan
+ && rm -rf /var/www/html/* \
+ && mkdir -p /database /scan
 
 COPY app/nginx.conf /etc/nginx/nginx.conf
 COPY app/ducrc /etc/ducrc
@@ -83,4 +78,4 @@ EXPOSE 80
 
 STOPSIGNAL SIGTERM
 
-CMD /startup.sh
+CMD ["/startup.sh"]

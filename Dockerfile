@@ -1,4 +1,4 @@
-ARG UBUNTU_VERSION=18.04
+ARG UBUNTU_VERSION=22.04
 
 ####################################
 # Temporary image for building Duc #
@@ -6,7 +6,7 @@ ARG UBUNTU_VERSION=18.04
 
 FROM ubuntu:${UBUNTU_VERSION} AS build
 
-ARG DUC_VERSION=1.4.4
+ARG DUC_VERSION=1.4.5
 
 RUN apt-get update -qq \
  && apt-get install -qq --no-install-recommends \

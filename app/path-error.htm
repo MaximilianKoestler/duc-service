@@ -1,0 +1,28 @@
+<script type="text/javascript">
+  $(document).ready(function() {
+    /* Check if the path parameter is provided in the URL and use it */
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    var path = "";
+    if (urlParams.has('path')) {
+        path = urlParams.get('path');
+        console.log("path: " + path);
+    }
+    
+    document.getElementById("path_error").innerHTML = path;
+
+    var db = "";
+    if (urlParams.has('db')) {
+        db = urlParams.get('db');
+        console.log("DB: " + db);
+    }
+
+    document.getElementById("folder_up_button").href = "duc.cgi?db=" + db + "&cmd=index&path=" + path.split("/").slice(0, -1).join("/")
+  })
+</script>
+
+<div id=error>
+  <h2 class=error>Error</h2>
+  <p class="error error_message">The selected path can not be found in this snapshot:<br><br><span id="path_error"></span>!</p>
+  <p><a href="" id="folder_up_button">Go one folder higher</a></p>
+</div>

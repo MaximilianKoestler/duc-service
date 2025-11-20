@@ -45,13 +45,17 @@
                     a_class = "selected_snapshot_link"
 
                     var formated_path = ""
+                    //path = path.replace("/scan", "")
                     p = "/"
                     arr = path.split("/")
                     arr.shift()
                     arr.forEach(element => {
-                      console.log("element: " + element);
-                      p = p + element + "/"
-                      formated_path = formated_path + "&nbsp;/&nbsp;" + "<a href=duc.cgi?db=" + db + "&path=" + p + ">" + element + "</a>"
+                      if (element != "") {
+                        console.log("element: " + element);
+                        p = p + element + "/"
+                        //formated_path = formated_path + "/<a href=duc.cgi?db=" + db + "&path=/scan" + p + ">" + element + "</a>"
+                        formated_path = formated_path + "/<a href=duc.cgi?db=" + db + "&path=" + p + ">" + element + "</a>"
+                      }
                     });
 
                     document.getElementById("content_header_div").innerHTML = "<h2 class=content_header>Snapshot " + 
@@ -81,9 +85,17 @@
       </div>
       <h2 style="margin-bottom: 0; margin-left: 10px;">Snapshots</h2>
       <div id=databases><ul id="databases_list" style="margin:0"></ul></div>
-      <p>More: <a href=https://github.com/caco3/duc-service target=_blank>github.com/caco3/duc-service</a></p>
-      <p>Based on &nbsp;<a href=https://duc.zevv.nl/ target=_blank alt=Duc><img src=duc.png width=70px style="vertical-align:middle" ></a></p>
-      <p>Icon source: <a href="https://www.flaticon.com/free-icon/storage-space_8110605" title="storage space icons" target=_blank>Storage space icons created by Freepik - Flaticon</a></p>
-  </div>
-  <div id=content_header_div style="float: left; width: 80%"><h2 id=content_header>Snapshot</h2></div>
+
+      <hr>
+  
+      <h3>Navigation</h3>
+      <ul class="nav-ul">
+        <li class="nav-li"><span class="not_selected_snapshot"><a class="snapshot_link " href="duc.cgi">Main</a></span></li>
+        <li class="nav-li"><span class="not_selected_snapshot"><a class="snapshot_link " href="manual_scan.cgi">Start Scan</a></span></li>
+        <li class="nav-li"><span class="not_selected_snapshot"><a class="snapshot_link " href="show-log.cgi">Log</a></span></li>
+        <li class="nav-li"><span class="not_selected_snapshot"><a class="snapshot_link " href="show-help.cgi">Help</a></span></li>
+      </ul>
+  
+    </div>
+  <div id=content_header_div style="width: 80%"><h2 id=content_header>Snapshot</h2></div>
   <div id=content style="float: left;">

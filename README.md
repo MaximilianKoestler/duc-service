@@ -52,6 +52,13 @@ docker run -e "SCHEDULE=0 0 * * *" -e "RUN_SCAN_ON_STARTUP=false" \
 - `/log.cgi` displays the log output from the last scan
 
 ## Developing
+```bash
+docker run -it -e "RUN_SCAN_ON_STARTUP=true" -p 8080:80 --mount type=bind,src=$PWD/..,dst=/scan/temp,readonly  --mount type=volume,src=duc_database,dst=/database -v $PWD/app:/var/www/html $(docker build -q .)
+```
+
+Now you can edit the files in the `app` folder without having to rebuild/start the docker container.
+
+### Upload to dockerhub
 Build, tag and publish:
 ```
 docker build . --file Dockerfile --tag caco3x/duc-service:latest

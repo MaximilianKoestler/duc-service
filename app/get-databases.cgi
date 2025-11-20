@@ -1,4 +1,4 @@
-#! /bin/bash
+#!/usr/bin/env bash
 # Searches the /databases folders and retuns a list of all *.db files.
 # For JSON simplicity (no coma after the last element, we simply add a 0 value at the end.
 

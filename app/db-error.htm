@@ -1,0 +1,20 @@
+<script type="text/javascript">
+  $(document).ready(function() {
+      /* Check if the db parameter is provided in the URL and use it */
+      const queryString = window.location.search;
+      const urlParams = new URLSearchParams(queryString);
+      var db = "";
+      if (urlParams.has('db')) {
+          db = urlParams.get('db');
+          console.log("DB: " + db);
+          //db = db.replace("/database", "");
+      }
+      
+      document.getElementById("db_error").innerHTML = db;
+  })
+</script>
+
+<div id=error>
+  <h2 class=error>Error</h2>
+  <p class="error error_message">The selected snapshots can not be found:<br><br><span id="db_error"></span>!</p>
+</div>
